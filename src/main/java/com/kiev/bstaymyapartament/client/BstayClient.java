@@ -235,7 +235,7 @@ public class BstayClient {
 
         if (!checkOut.isAfter(checkIn)) {
             throw new IllegalArgumentException(
-                    "A saída deve ser posterior à entrada."
+                    "A data de saída deve ser posterior à data de entrada."
             );
         }
 

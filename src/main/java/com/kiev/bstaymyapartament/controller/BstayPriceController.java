@@ -34,9 +34,9 @@ public class BstayPriceController {
             LocalDate checkOut,
 
             @RequestParam(defaultValue = "2")
-            @Min(1)
-            @Max(4)
-            int guests
+            @Min(value = 1, message = "A quantidade de hóspedes deve ser de no mínimo 1 e no máximo 4.")
+            @Max(value = 4, message = "A quantidade de hóspedes deve ser de no mínimo 1 e no máximo 4.")
+            Integer guests
     ) throws IOException {
 
         return bstayClient.getPrice(checkIn, checkOut, guests);
