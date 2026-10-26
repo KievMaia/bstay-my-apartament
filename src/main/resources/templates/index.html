@@ -1,0 +1,485 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#f5f1e9">
+    <title>Send Rio 1404A | Uma estadia no coração do Rio</title>
+    <meta name="description"
+          content="Conheça o Send Rio 1404A, um studio moderno no Centro do Rio de Janeiro. Consulte preços e disponibilidade para sua estadia.">
+
+    <style>
+        :root {
+            --paper: #f5f1e9;
+            --ink: #292d29;
+            --muted: #74766e;
+            --accent: #a77e4e;
+            --line: #ded8cc;
+            --white: #fffdf9;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            background: var(--paper);
+            color: var(--ink);
+            font-family: Arial, Helvetica, sans-serif;
+            line-height: 1.6;
+        }
+
+        a { color: inherit; }
+
+        .container {
+            width: min(1160px, calc(100% - 40px));
+            margin-inline: auto;
+        }
+
+        header {
+            border-bottom: 1px solid var(--line);
+        }
+
+        .nav {
+            min-height: 82px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 24px;
+        }
+
+        .brand {
+            font-family: Georgia, serif;
+            font-size: 23px;
+            letter-spacing: 1px;
+        }
+
+        .brand small {
+            display: block;
+            color: var(--muted);
+            font: 10px Arial, sans-serif;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+
+        .nav a {
+            text-decoration: none;
+            font-size: 13px;
+        }
+
+        .nav .nav-cta {
+            padding: 12px 18px;
+            border: 1px solid var(--ink);
+        }
+
+        .hero {
+            padding-top: 54px;
+            padding-bottom: 64px;
+        }
+
+        .eyebrow {
+            color: var(--accent);
+            font-size: 11px;
+            font-weight: bold;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+
+        h1, h2 {
+            font-family: Georgia, "Times New Roman", serif;
+            font-weight: normal;
+            line-height: 1.12;
+        }
+
+        h1 {
+            max-width: 780px;
+            margin: 14px 0;
+            font-size: clamp(38px, 6vw, 68px);
+        }
+
+        .intro {
+            max-width: 610px;
+            color: var(--muted);
+            font-size: 16px;
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr;
+            grid-template-rows: 220px 220px;
+            gap: 12px;
+            margin-top: 34px;
+        }
+
+        .gallery img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .gallery .main-photo {
+            grid-row: 1 / 3;
+        }
+
+        .facts {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px 28px;
+            margin-top: 24px;
+            color: var(--muted);
+            font-size: 14px;
+        }
+
+        .booking {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr auto;
+            gap: 12px;
+            align-items: end;
+            padding: 22px;
+            margin-top: 32px;
+            background: var(--white);
+            border: 1px solid var(--line);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        input, select {
+            width: 100%;
+            min-height: 46px;
+            padding: 10px;
+            border: 1px solid var(--line);
+            background: white;
+            color: var(--ink);
+            font: inherit;
+        }
+
+        button {
+            min-height: 46px;
+            padding: 0 22px;
+            border: 0;
+            background: var(--ink);
+            color: white;
+            font: inherit;
+            cursor: pointer;
+        }
+
+        .section {
+            padding: 64px 0;
+            border-top: 1px solid var(--line);
+        }
+
+        .section h2 {
+            max-width: 600px;
+            margin: 12px 0 18px;
+            font-size: clamp(30px, 4vw, 46px);
+        }
+
+        .description {
+            max-width: 720px;
+            color: var(--muted);
+        }
+
+        .amenities {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin-top: 30px;
+        }
+
+        .amenity {
+            padding: 18px;
+            border: 1px solid var(--line);
+            background: rgba(255, 253, 249, .55);
+        }
+
+        .amenity strong {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .amenity span {
+            color: var(--muted);
+            font-size: 13px;
+        }
+
+        .location {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .location img {
+            width: 100%;
+            min-height: 300px;
+            object-fit: cover;
+        }
+
+        footer {
+            padding: 28px 0;
+            border-top: 1px solid var(--line);
+            color: var(--muted);
+            font-size: 12px;
+        }
+
+        @media (max-width: 720px) {
+            .nav { min-height: 70px; }
+            .nav > a:first-child { font-size: 19px; }
+            .hero { padding-top: 38px; }
+            .gallery {
+                grid-template-columns: 1fr 1fr;
+                grid-template-rows: 260px 130px;
+            }
+            .gallery .main-photo {
+                grid-column: 1 / 3;
+                grid-row: auto;
+            }
+            .booking { grid-template-columns: 1fr 1fr; }
+            .booking button { width: 100%; }
+            .amenities { grid-template-columns: 1fr 1fr; }
+            .location { grid-template-columns: 1fr; }
+        }
+
+        @media (max-width: 420px) {
+            .container { width: calc(100% - 28px); }
+            .nav-cta { padding: 9px 10px !important; }
+            .booking { grid-template-columns: 1fr; }
+            .gallery { grid-template-rows: 220px 110px; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="container nav">
+        <a class="brand" href="/" style="text-decoration:none">
+            SEND RIO
+            <small>Estadia urbana · 1404A</small>
+        </a>
+        <a class="nav-cta" href="#reservar">Consultar estadia</a>
+    </div>
+</header>
+
+<main>
+    <section class="container hero">
+        <span class="eyebrow">Centro Histórico · Rio de Janeiro</span>
+        <h1>O Rio por perto.<br>O seu espaço para ficar.</h1>
+        <p class="intro">
+            Um studio contemporâneo e acolhedor para descobrir a cultura,
+            a arquitetura e os sabores cariocas com praticidade e conforto.
+        </p>
+
+        <div class="gallery">
+            <img class="main-photo"
+                 src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1200&q=85"
+                 alt="Interior contemporâneo de apartamento"
+                 fetchpriority="high">
+            <img src="https://images.unsplash.com/photo-1556912172-45b7abe8b7e1?auto=format&fit=crop&w=700&q=80"
+                 alt="Cozinha moderna e equipada">
+            <img src="https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=700&q=80"
+                 alt="Quarto aconchegante">
+        </div>
+
+        <div class="facts">
+            <span>33 m²</span>
+            <span>1 quarto</span>
+            <span>Até 4 hóspedes</span>
+            <span>1 cama de casal + sofá-cama</span>
+            <span>1 banheiro</span>
+        </div>
+
+        <form id="reservar" class="booking">
+            <div>
+                <label for="checkIn">Check-in</label>
+                <input type="date" id="checkIn" name="checkIn" required>
+            </div>
+            <div>
+                <label for="checkOut">Check-out</label>
+                <input type="date" id="checkOut" name="checkOut" required>
+            </div>
+            <div>
+                <label for="guests">Hóspedes</label>
+                <select id="guests" name="guests">
+                    <option value="1">1 hóspede</option>
+                    <option value="2" selected>2 hóspedes</option>
+                    <option value="3">3 hóspedes</option>
+                    <option value="4">4 hóspedes</option>
+                </select>
+            </div>
+            <button type="submit">Consultar preços</button>
+        </form>
+
+        <p id="priceResult" role="status" aria-live="polite"></p>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <span class="eyebrow">O apartamento</span>
+            <h2>Conforto na medida certa para viver a cidade.</h2>
+            <p class="description">
+                Móveis elegantes, cozinha compacta equipada, Smart TV,
+                ar-condicionado e Wi-Fi. Um espaço privativo pensado para
+                estadias práticas, seja para explorar o Rio ou trabalhar
+                com tranquilidade.
+            </p>
+
+            <div class="amenities">
+                <div class="amenity">
+                    <strong>Conectividade</strong>
+                    <span>Wi-Fi e espaço para notebook</span>
+                </div>
+                <div class="amenity">
+                    <strong>Cozinha equipada</strong>
+                    <span>Cooktop, geladeira e micro-ondas</span>
+                </div>
+                <div class="amenity">
+                    <strong>Descanso</strong>
+                    <span>Cama de casal e sofá-cama</span>
+                </div>
+                <div class="amenity">
+                    <strong>Praticidade</strong>
+                    <span>Smart TV e ar-condicionado</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container location">
+            <div>
+                <span class="eyebrow">Uma localização estratégica</span>
+                <h2>O Centro como ponto de partida.</h2>
+                <p class="description">
+                    A aproximadamente 5 minutos a pé da estação Cinelândia,
+                    com acesso ao metrô, VLT, restaurantes, comércio,
+                    arquitetura histórica e atrações culturais.
+                </p>
+                <p class="description">
+                    Aeroporto Santos Dumont: aproximadamente 1,8 km.
+                    Consulado Americano: aproximadamente 650 m.
+                </p>
+            </div>
+            <img src="https://images.unsplash.com/photo-1483729558449-99ef09a8c325?auto=format&fit=crop&w=1000&q=80"
+                 alt="Paisagem urbana do Rio de Janeiro"
+                 loading="lazy">
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <span class="eyebrow">Antes da chegada</span>
+            <h2>Uma estadia tranquila começa com boas informações.</h2>
+            <div class="amenities">
+                <div class="amenity">
+                    <strong>Check-in</strong>
+                    <span>A partir das 15h, com acesso digital.</span>
+                </div>
+                <div class="amenity">
+                    <strong>Check-out</strong>
+                    <span>Até as 12h.</span>
+                </div>
+                <div class="amenity">
+                    <strong>Convivência</strong>
+                    <span>Silêncio das 22h às 8h. Não são permitidas visitas.</span>
+                </div>
+                <div class="amenity">
+                    <strong>Regras</strong>
+                    <span>Não é permitido fumar nem levar animais.</span>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<footer>
+    <div class="container">
+        Send Rio 1404A · Centro Histórico, Rio de Janeiro
+        <br>Imagens provisórias. A apresentação será atualizada com fotos reais do imóvel.
+    </div>
+</footer>
+
+<script>
+    const checkIn = document.getElementById('checkIn');
+    const checkOut = document.getElementById('checkOut');
+    const form = document.getElementById('reservar');
+    const result = document.getElementById('priceResult');
+
+    function localDateString(date) {
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const day = String(date.getDate()).padStart(2, '0');
+        return `${year}-${month}-${day}`;
+    }
+
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    checkIn.min = localDateString(today);
+    checkOut.min = localDateString(today);
+
+    checkIn.addEventListener('change', () => {
+        checkOut.min = checkIn.value || checkIn.min;
+
+        if (checkOut.value && checkOut.value <= checkIn.value) {
+            checkOut.value = '';
+        }
+    });
+
+    form.addEventListener('submit', async (event) => {
+        event.preventDefault();
+        result.textContent = 'Consultando disponibilidade e preços...';
+
+        if (!checkIn.value || !checkOut.value ||
+            checkOut.value <= checkIn.value) {
+            result.textContent =
+                'Informe uma data de saída posterior à data de entrada.';
+            return;
+        }
+
+        const params = new URLSearchParams({
+            checkIn: checkIn.value,
+            checkOut: checkOut.value,
+            guests: document.getElementById('guests').value
+        });
+
+        try {
+            const response = await fetch(`/api/prices?${params}`);
+            const data = await response.json();
+
+            if (response.status === 409) {
+                result.textContent =
+                    'Esse período não está disponível. Escolha outras datas.';
+                return;
+            }
+
+            if (!response.ok) {
+                result.textContent = data.detail ||
+                    'Não foi possível consultar os preços. Tente novamente.';
+                return;
+            }
+
+            const money = value => Number(value).toLocaleString('pt-BR', {
+                style: 'currency',
+                currency: 'BRL'
+            });
+
+            result.textContent =
+                `${data.nights} noites · ` +
+                `Diária média: ${money(data.averageNightlyPrice)} · ` +
+                `Hospedagem: ${money(data.accommodationSubtotal)} · ` +
+                `Limpeza: ${money(data.cleaningFee)} · ` +
+                `Total: ${money(data.total)}`;
+        } catch {
+            result.textContent =
+                'Não foi possível conectar ao serviço. Tente novamente.';
+        }
+    });
+</script>
+
+</body>
+</html>
