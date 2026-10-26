@@ -10,6 +10,7 @@ import org.springframework.web.method.annotation.HandlerMethodValidationExceptio
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 import java.io.IOException;
+import java.util.Objects;
 
 @RestControllerAdvice
 public class ApiExceptionHandler {
@@ -33,7 +34,6 @@ public class ApiExceptionHandler {
         return badRequest(message);
     }
 
-
     @ExceptionHandler(HandlerMethodValidationException.class)
     public ProblemDetail handleMethodValidation(
             HandlerMethodValidationException exception
@@ -42,13 +42,12 @@ public class ApiExceptionHandler {
                 .stream()
                 .flatMap(result -> result.getResolvableErrors().stream())
                 .map(error -> error.getDefaultMessage())
-                .filter(java.util.Objects::nonNull)
+                .filter(Objects::nonNull)
                 .findFirst()
                 .orElse("Os parâmetros informados são inválidos.");
 
         return badRequest(message);
     }
-
 
     @ExceptionHandler(MethodArgumentTypeMismatchException.class)
     public ProblemDetail handleTypeMismatch(
@@ -80,6 +79,16 @@ public class ApiExceptionHandler {
         return ProblemDetail.forStatusAndDetail(
                 HttpStatus.BAD_GATEWAY,
                 "Não foi possível consultar os preços na BStay. Tente novamente mais tarde."
+        );
+    }
+
+    @ExceptionHandler(ApartmentUnavailableException.class)
+    public ProblemDetail handleApartmentUnavailable(
+            ApartmentUnavailableException exception) {
+
+        return ProblemDetail.forStatusAndDetail(
+                HttpStatus.CONFLICT,
+                exception.getMessage()
         );
     }
 

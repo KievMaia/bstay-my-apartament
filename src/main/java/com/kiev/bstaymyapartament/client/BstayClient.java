@@ -1,6 +1,7 @@
 
 package com.kiev.bstaymyapartament.client;
 
+import com.kiev.bstaymyapartament.exception.ApartmentUnavailableException;
 import com.kiev.bstaymyapartament.model.dto.BstayPriceResponse;
 import com.microsoft.playwright.Browser;
 import com.microsoft.playwright.BrowserContext;
@@ -144,6 +145,12 @@ public class BstayClient {
 
             String panelBody = root.path("panelBody").asText("");
             String panelHeader = root.path("panelHeader").asText("");
+
+            if (panelBody.contains("Esta acomodação não está disponível para o período da sua busca.")) {
+                throw new ApartmentUnavailableException(
+                        "O apartamento não está disponível para o período informado."
+                );
+            }
 
             if (panelBody.isBlank()) {
                 throw new IOException(
