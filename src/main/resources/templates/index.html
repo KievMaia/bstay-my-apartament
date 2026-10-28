@@ -8,6 +8,9 @@
     <meta name="description"
           content="Conheça o Send Rio 1404A, um studio moderno no Centro do Rio de Janeiro. Consulte preços e disponibilidade para sua estadia.">
     <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
 
@@ -30,16 +33,58 @@
             a arquitetura e os sabores cariocas com praticidade e conforto.
         </p>
 
-        <div class="gallery">
-            <img class="main-photo"
-                 src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1200&q=85"
-                 alt="Interior contemporâneo de apartamento"
-                 fetchpriority="high">
-            <img src="https://images.unsplash.com/photo-1556912172-45b7abe8b7e1?auto=format&fit=crop&w=700&q=80"
-                 alt="Cozinha moderna e equipada">
-            <img src="https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=700&q=80"
-                 alt="Quarto aconchegante">
+
+
+        <div class="gallery-carousel" id="gallery">
+            <button
+                    class="gallery-arrow gallery-arrow-prev"
+                    id="galleryPrev"
+                    type="button"
+                    aria-label="Fotos anteriores">
+                &#10094;
+            </button>
+
+            <div class="gallery-viewport" id="galleryViewport">
+                <div class="gallery-track" id="galleryTrack"></div>
+            </div>
+
+            <button
+                    class="gallery-arrow gallery-arrow-next"
+                    id="galleryNext"
+                    type="button"
+                    aria-label="Próximas fotos">
+                &#10095;
+            </button>
         </div>
+
+
+        <div id="lightbox" class="lightbox" hidden
+             role="dialog" aria-modal="true"
+             aria-label="Galeria de fotos do apartamento">
+
+            <button type="button" class="lightbox-close"
+                    id="lightboxClose" aria-label="Fechar galeria">
+                &times;
+            </button>
+
+            <button type="button" class="lightbox-nav lightbox-prev"
+                    id="lightboxPrev" aria-label="Foto anterior">
+                &#10094;
+            </button>
+
+            <figure class="lightbox-figure">
+                <img id="lightboxImage" src="" alt="">
+                <figcaption id="lightboxCaption"></figcaption>
+            </figure>
+
+            <button type="button" class="lightbox-nav lightbox-next"
+                    id="lightboxNext" aria-label="Próxima foto">
+                &#10095;
+            </button>
+
+            <p id="lightboxCounter" class="lightbox-counter"></p>
+        </div>
+
 
         <div class="facts">
             <span>33 m²</span>
@@ -73,58 +118,195 @@
         <div id="priceResult" class="price-result" role="status" aria-live="polite" hidden></div>
     </section>
 
-    <section class="section">
+
+    <section class="section" id="comodidades">
         <div class="container">
-            <span class="eyebrow">O apartamento</span>
-            <h2>Conforto na medida certa para viver a cidade.</h2>
+            <span class="eyebrow">Conforto e praticidade</span>
+            <h2>Tudo o que você precisa para aproveitar o Rio.</h2>
+
             <p class="description">
-                Móveis elegantes, cozinha compacta equipada, Smart TV,
-                ar-condicionado e Wi-Fi. Um espaço privativo pensado para
-                estadias práticas, seja para explorar o Rio ou trabalhar
-                com tranquilidade.
+                Um espaço privativo e funcional, com comodidades para
+                descansar, preparar refeições e trabalhar durante a estadia.
             </p>
 
             <div class="amenities">
                 <div class="amenity">
-                    <strong>Conectividade</strong>
-                    <span>Wi-Fi e espaço para notebook</span>
+                    <strong>Descanso</strong>
+                    <span>Cama de casal, sofá-cama e roupas de cama.</span>
                 </div>
+
                 <div class="amenity">
                     <strong>Cozinha equipada</strong>
-                    <span>Cooktop, geladeira e micro-ondas</span>
+                    <span>Cooktop, geladeira, micro-ondas e utensílios básicos.</span>
                 </div>
+
                 <div class="amenity">
-                    <strong>Descanso</strong>
-                    <span>Cama de casal e sofá-cama</span>
+                    <strong>Conectividade</strong>
+                    <span>Wi-Fi e espaço para notebook.</span>
                 </div>
+
                 <div class="amenity">
-                    <strong>Praticidade</strong>
-                    <span>Smart TV e ar-condicionado</span>
+                    <strong>Entretenimento</strong>
+                    <span>Smart TV e ar-condicionado.</span>
                 </div>
+
+                <div class="amenity">
+                    <strong>Banheiro privativo</strong>
+                    <span>Toalhas, roupa de cama e itens básicos de higiene.</span>
+                </div>
+            </div>
+
+            <div class="common-areas">
+                <span class="eyebrow">Estrutura do edifício</span>
+                <h3>Mais comodidades durante a estadia.</h3>
+
+                <div class="amenities">
+                    <div class="amenity">
+                        <strong>Portaria 24 horas</strong>
+                        <span>Recepção e controle de acesso ao edifício.</span>
+                    </div>
+
+                    <div class="amenity">
+                        <strong>Academia</strong>
+                        <span>Área comum com horário previsto das 8h às 22h.</span>
+                    </div>
+
+                    <div class="amenity">
+                        <strong>Lavanderia</strong>
+                        <span>Serviço de uso pago, das 8h às 22h.</span>
+                    </div>
+
+                    <div class="amenity">
+                        <strong>Lazer e convivência</strong>
+                        <span>Sauna, salão de jogos e espaços comuns, sujeitos à disponibilidade.</span>
+                    </div>
+                </div>
+
+                <p class="amenities-note">
+                    As áreas comuns pertencem ao condomínio. O uso está sujeito
+                    às regras do edifício e à disponibilidade no período da estadia.
+                    A lavanderia é cobrada à parte.
+                </p>
             </div>
         </div>
     </section>
 
-    <section class="section">
-        <div class="container location">
-            <div>
-                <span class="eyebrow">Uma localização estratégica</span>
-                <h2>O Centro como ponto de partida.</h2>
-                <p class="description">
-                    A aproximadamente 5 minutos a pé da estação Cinelândia,
-                    com acesso ao metrô, VLT, restaurantes, comércio,
-                    arquitetura histórica e atrações culturais.
-                </p>
-                <p class="description">
-                    Aeroporto Santos Dumont: aproximadamente 1,8 km.
-                    Consulado Americano: aproximadamente 650 m.
-                </p>
+
+
+    <section class="section location-section" id="localizacao">
+        <div class="container">
+            <span class="eyebrow">Uma localização estratégica</span>
+            <h2>O Centro como ponto de partida.</h2>
+
+            <p class="description location-intro">
+                Explore o Rio com fácil acesso ao transporte público,
+                à arquitetura histórica, à gastronomia e às atrações culturais.
+            </p>
+
+            <div class="location-layout">
+                <div class="location-map">
+                    <iframe
+                            title="Mapa da região do condomínio Send Rio, no Centro do Rio de Janeiro"
+
+
+                            src="https://maps.google.com/maps?q=Send%20Rio%20Cooliving%2C%20Rua%20Senador%20Dantas%2C%2080%2C%20Centro%2C%20Rio%20de%20Janeiro&t=&z=15&ie=UTF8&iwloc=&output=embed"
+                            loading="lazy"
+                            referrerpolicy="no-referrer-when-downgrade"
+                            allowfullscreen>
+                    </iframe>
+                </div>
+
+                <div class="location-details">
+                    <span class="eyebrow">Pontos de interesse</span>
+
+                    <div class="location-point">
+                        <div>
+                            <strong>Estação Cinelândia</strong>
+                            <span>Metrô e VLT</span>
+                            <small>Aproximadamente 4 min a pé</small>
+                        </div>
+                        <a
+                                href="https://www.google.com/maps/dir/?api=1&origin=Rua+Senador+Dantas+80+Centro+Rio+de+Janeiro&destination=Estacao+Cinel%C3%A2ndia+Rio+de+Janeiro&travelmode=walking"
+                                target="_blank"
+                                rel="noopener noreferrer">
+                            Ver rota
+                        </a>
+                    </div>
+
+                    <div class="location-point">
+                        <div>
+                            <strong>Estação Carioca</strong>
+                            <span>Metrô e integração com o VLT</span>
+                            <small>Aproximadamente 3 min a pé</small>
+                        </div>
+                        <a
+                                href="https://www.google.com/maps/dir/?api=1&origin=Rua+Senador+Dantas+80+Centro+Rio+de+Janeiro&destination=Estacao+Carioca+Rio+de+Janeiro&travelmode=walking"
+                                target="_blank"
+                                rel="noopener noreferrer">
+                            Ver rota
+                        </a>
+                    </div>
+
+
+                    <div class="location-point">
+                        <div>
+                            <strong>Aeroporto Santos Dumont</strong>
+                            <span>Chegada e partida da cidade</span>
+                            <small>Aproximadamente 1,8 km</small>
+                        </div>
+                        <a
+                                href="https://www.google.com/maps/dir/?api=1&origin=Rua+Senador+Dantas+80+Centro+Rio+de+Janeiro&destination=Aeroporto+Santos+Dumont+Rio+de+Janeiro"
+                                target="_blank"
+                                rel="noopener noreferrer">
+                            Ver rota
+                        </a>
+                    </div>
+
+                    <div class="location-point">
+                        <div>
+                            <strong>Consulado Americano</strong>
+                            <span>Região central</span>
+                            <small>Aproximadamente 650 m</small>
+                        </div>
+                        <a
+                                href="https://www.google.com/maps/dir/?api=1&origin=Rua+Senador+Dantas+80+Centro+Rio+de+Janeiro&destination=Consulado+Geral+dos+Estados+Unidos+Rio+de+Janeiro"
+                                target="_blank"
+                                rel="noopener noreferrer">
+                            Ver rota
+                        </a>
+                    </div>
+
+                    <div class="location-point">
+                        <div>
+                            <strong>Arcos da Lapa</strong>
+                            <span>Arquitetura, bares e cultura</span>
+                        </div>
+                        <a
+                                href="https://www.google.com/maps/dir/?api=1&origin=Rua+Senador+Dantas+80+Centro+Rio+de+Janeiro&destination=Arcos+da+Lapa+Rio+de+Janeiro&travelmode=walking"
+                                target="_blank"
+                                rel="noopener noreferrer">
+                            Ver rota
+                        </a>
+                    </div>
+
+                    <a
+                            class="location-main-link"
+                            href="https://www.google.com/maps/search/?api=1&query=Send+Rio+Cooliving+Rua+Senador+Dantas+80+Rio+de+Janeiro"
+                            target="_blank"
+                            rel="noopener noreferrer">
+                        Abrir localização no Google Maps
+                        <span aria-hidden="true">↗</span>
+                    </a>
+                </div>
             </div>
-            <img src="https://images.unsplash.com/photo-1483729558449-99ef09a8c325?auto=format&fit=crop&w=1000&q=80"
-                 alt="Paisagem urbana do Rio de Janeiro"
-                 loading="lazy">
+
+            <p class="location-note">
+                Distâncias e tempos são aproximados e podem variar conforme
+                o trajeto. Consulte o mapa para verificar o percurso atualizado.
+            </p>
         </div>
     </section>
+
 
     <section class="section">
         <div class="container">
@@ -158,6 +340,10 @@
         <br>Imagens provisórias. A apresentação será atualizada com fotos reais do imóvel.
     </div>
 </footer>
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"
+        defer></script>
+<script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/pt.js"
+        defer></script>
 <script th:src="@{/js/app.js}" defer></script>
 </body>
 </html>
